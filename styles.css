@@ -74,3 +74,38 @@ html.dark .glass-panel-heavy {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(117, 118, 132, 0.5); 
 }
+
+/* Widget View CSS Modifications */
+body.widget-view {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+body.widget-view #bg-gradient,
+body.widget-view header,
+body.widget-view #station-selector-trigger,
+body.widget-view #direction-tabs,
+body.widget-view #last-updated {
+    display: none !important;
+}
+
+body.widget-view main {
+    padding: 8px !important;
+    margin: 0 auto !important;
+    gap: 8px !important;
+    max-width: 100% !important;
+}
+
+body.widget-view .glass-panel,
+body.widget-view .glass-panel-heavy {
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+}
+
+html.dark body.widget-view .glass-panel,
+html.dark body.widget-view .glass-panel-heavy {
+    background: rgba(26, 32, 44, 0.9) !important;
+}
+

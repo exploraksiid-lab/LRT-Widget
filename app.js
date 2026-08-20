@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentDirection = 'inbound'; // 'inbound' (Ke Dukuh Atas) or 'outbound' (Dari Dukuh Atas)
     let allStations = [];
     
+    // Check URL parameters for widget view
+    const urlParams = new URLSearchParams(window.location.search);
+    const isWidgetView = urlParams.get('view') === 'widget';
+    if (isWidgetView) {
+        document.body.classList.add('widget-view');
+        const stationParam = urlParams.get('station');
+        if (stationParam) {
+            currentStation = stationParam;
+        }
+        const directionParam = urlParams.get('direction');
+        if (directionParam) {
+            currentDirection = directionParam;
+        }
+    }
+    
     // DOM Elements
     const stationNameEl = document.getElementById('current-station-name');
     const heroDestinationEl = document.getElementById('hero-destination');
