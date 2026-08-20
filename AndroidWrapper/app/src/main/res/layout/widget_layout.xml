@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <!-- Rendered web view as bitmap -->
+    <ImageView
+        android:id="@+id/widget_webview_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:contentDescription="LRT Schedule Widget" />
+
+    <!-- Loading placeholder text shown while bitmap is rendering -->
+    <TextView
+        android:id="@+id/widget_loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="🚆 Memuat jadwal..."
+        android:textColor="#00288e"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <!-- Refresh button in top-right corner -->
+    <ImageView
+        android:id="@+id/widget_refresh_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_refresh"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Refresh Widget"
+        android:padding="4dp" />
+
+</FrameLayout>

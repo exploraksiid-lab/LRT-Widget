@@ -1,0 +1,13 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.LRTWidget" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#00288e</item>
+        <item name="colorPrimaryVariant">#1e40af</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">#0060ac</item>
+        <item name="android:windowBackground">#f8f9ff</item>
+    </style>
+
+    <style name="Theme.LRTWidget.Config" parent="Theme.LRTWidget">
+        <item name="android:windowBackground">#f8f9ff</item>
+    </style>
+</resources>

@@ -1,0 +1,64 @@
+name: Build Debug APK
+
+on:
+  push:
+    paths:
+      - 'AndroidWrapper/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x AndroidWrapper/gradlew
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build Debug APK
+        run: |
+          cd AndroidWrapper
+          ./gradlew assembleDebug --no-daemon
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+
+      - name: Upload APK as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LRT-Widget-Debug-APK
+          path: AndroidWrapper/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
+
+      - name: Create GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "LRT Jabodebek Widget v${{ github.run_number }}"
+          body: |
+            🚆 **LRT Jabodebek Live Widget APK**
+            
+            Auto-generated from commit ${{ github.sha }}
+            
+            **Cara Install:**
+            1. Download file `app-debug.apk` di bawah
+            2. Di HP Android, aktifkan **Izinkan instalasi dari sumber tidak dikenal** (Settings > Security)
+            3. Install APK
+            4. Tambahkan widget **LRT Live Widget** dari widget picker di beranda
+          files: AndroidWrapper/app/build/outputs/apk/debug/app-debug.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
