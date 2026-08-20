@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>LRT Jabodebek Live Tracker</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f8f9ff">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#b8c4ff",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#dde1ff",
+                        "on-tertiary-container": "#3fd298",
+                        "on-surface-variant": "#444653",
+                        "surface-tint": "#3755c3",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-primary-container": "#a8b8ff",
+                        "on-surface": "#0b1c30",
+                        "primary": "#00288e",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#001c39",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004883",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-tertiary-fixed": "#002113",
+                        "on-secondary-container": "#003c70",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed-variant": "#173bab",
+                        "error": "#ba1a1a",
+                        "outline": "#757684",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#00563a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-surface": "#213145",
+                        "error-container": "#ffdad6",
+                        "secondary": "#0060ac",
+                        "primary-fixed-dim": "#b8c4ff",
+                        "on-primary-fixed": "#001453",
+                        "outline-variant": "#c4c5d5",
+                        "secondary-container": "#64a8fe",
+                        "tertiary": "#003d27",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "primary-container": "#1e40af"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "container-max": "400px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-time": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-time": ["48px", { "lineHeight": "1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container min-h-screen text-on-surface font-body-lg antialiased overflow-x-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- Global Background Gradient -->
+<div class="fixed inset-0 z-[-1] bg-gradient-to-br from-surface-bright via-surface-container-low to-surface-container-high opacity-80 pointer-events-none" id="bg-gradient"></div>
+
+<!-- Main Container -->
+<main class="w-full max-w-container-max mx-auto px-margin-mobile pt-[80px] pb-[100px] flex flex-col gap-lg relative">
+    
+    <!-- TopAppBar -->
+    <header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-xl border-b border-white/10 dark:border-white/5 shadow-sm">
+        <div class="flex items-center justify-between px-margin-mobile h-16 w-full max-w-container-max mx-auto">
+            <div class="flex items-center gap-sm">
+                <span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: 'FILL' 1;">directions_subway</span>
+                <span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary dark:text-inverse-primary">LRT Jabodebek</span>
+            </div>
+            <button id="theme-toggle" class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant/50 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+                <span class="material-symbols-outlined">light_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Station Selector Widget -->
+    <section class="glass-panel rounded-xl p-md flex items-center justify-between mt-sm relative">
+        <div class="flex items-center gap-md w-full" id="station-selector-trigger">
+            <!-- Train Icon Image -->
+            <div class="w-10 h-10 object-contain rounded-full bg-white p-2 flex items-center justify-center">
+                <span class="material-symbols-outlined text-primary">train</span>
+            </div>
+            <div class="flex-1">
+                <label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">STASIUN SAAT INI</label>
+                <div class="flex items-center justify-between bg-white/50 dark:bg-black/20 rounded-lg px-3 py-2 cursor-pointer hover:bg-white/70 dark:hover:bg-black/30 transition-colors">
+                    <span class="font-headline-md text-headline-md text-primary dark:text-inverse-primary" id="current-station-name">Memuat...</span>
+                    <span class="material-symbols-outlined text-primary dark:text-inverse-primary">expand_more</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Station Modal -->
+    <div id="station-modal" class="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm hidden flex-col justify-end">
+        <div class="bg-surface dark:bg-surface-dim w-full max-w-container-max mx-auto rounded-t-2xl p-4 animate-slide-up h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-headline-lg-mobile font-bold text-on-surface">Pilih Stasiun</h3>
+                <button id="close-modal" class="p-2 rounded-full bg-surface-variant text-on-surface">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <input type="text" id="station-search" placeholder="Cari stasiun..." class="w-full p-3 rounded-lg border border-outline-variant bg-surface-bright dark:bg-surface text-on-surface mb-4">
+            <div id="station-list" class="overflow-y-auto flex-1 flex flex-col gap-2">
+                <!-- Stations will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Arrival (Hero Widget) -->
+    <section class="glass-panel-heavy rounded-xl p-xl flex flex-col relative overflow-hidden" id="hero-widget">
+        <!-- Decorative gradient orb behind -->
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-secondary-container rounded-full blur-3xl opacity-50"></div>
+        <div class="flex justify-between items-start z-10 relative">
+            <div>
+                <span class="font-label-caps text-label-caps text-on-surface-variant tracking-wider bg-white/50 dark:bg-black/20 px-2 py-1 rounded-md" id="direction-label">KEBERANGKATAN BERIKUTNYA</span>
+                <h2 class="font-headline-lg text-headline-lg text-primary dark:text-inverse-primary mt-sm mb-xs" id="hero-destination">---</h2>
+                <p class="font-body-sm text-body-sm text-outline" id="hero-line">---</p>
+            </div>
+            <div class="bg-primary/10 dark:bg-inverse-primary/20 p-3 rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-transform" id="refresh-btn">
+                <span class="material-symbols-outlined text-primary dark:text-inverse-primary" style="font-variation-settings: 'FILL' 1; font-size: 32px;">sync</span>
+            </div>
+        </div>
+        <div class="mt-lg z-10">
+            <div class="flex items-baseline gap-sm">
+                <span class="font-display-time text-display-time text-primary dark:text-inverse-primary" id="hero-time">--</span>
+                <span class="font-headline-md text-headline-md text-primary-container dark:text-inverse-primary">Menit Lagi</span>
+            </div>
+            <p class="text-sm text-outline mt-1" id="hero-clock">--:--</p>
+            <div class="w-full bg-surface-variant/50 h-2 rounded-full mt-4 overflow-hidden">
+                <div class="bg-primary dark:bg-inverse-primary h-full rounded-full w-[100%] transition-all duration-1000" id="hero-progress"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segmented Control for Directions -->
+    <div class="bg-surface-variant/30 dark:bg-surface-dim/50 p-1 rounded-lg flex gap-1 mt-sm" id="direction-tabs">
+        <button class="flex-1 py-2 text-center bg-white dark:bg-surface shadow-sm rounded-md font-label-caps text-label-caps text-primary dark:text-inverse-primary transition-all active-tab" data-dir="inbound">KE DUKUH ATAS</button>
+        <button class="flex-1 py-2 text-center text-on-surface-variant dark:text-outline hover:bg-white/50 dark:hover:bg-surface/50 rounded-md font-label-caps text-label-caps transition-all" data-dir="outbound">DARI DUKUH ATAS</button>
+    </div>
+
+    <!-- Upcoming Trains List -->
+    <section class="flex flex-col gap-md" id="upcoming-trains-list">
+        <!-- List will be populated dynamically -->
+        <div class="text-center p-4 text-outline">Memuat jadwal...</div>
+    </section>
+
+    <!-- Last Updated Footer -->
+    <div class="text-center text-xs text-outline mt-4" id="last-updated">
+        Terakhir diperbarui: --:--:--
+    </div>
+</main>
+
+<!-- Scripts -->
+<script src="schedule_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
